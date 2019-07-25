@@ -40,9 +40,9 @@ FusionEKF::FusionEKF() {
    * TODO: Set the process and measurement noises
    */
 
-   // measurement matrix - laser
-   H_laser_ << 1, 0, 0, 0,
-               0, 1, 0, 0;
+  // measurement matrix - laser
+  H_laser_ << 1, 0, 0, 0,
+              0, 1, 0, 0;
 
 }
 
@@ -121,17 +121,17 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
    * Use noise_ax = 9 and noise_ay = 9 for your Q matrix.
    */
 
-   // new elapsed time
-   // Time is measured in seconds
-   float dt = (measurement_pack.timestamp_ - previous_timestamp_) / 1000000.0;
-   previous_timestamp_ = measurement_pack.timestamp_;
+  // new elapsed time
+  // Time is measured in seconds
+  float dt = (measurement_pack.timestamp_ - previous_timestamp_) / 1000000.0;
+  previous_timestamp_ = measurement_pack.timestamp_;
 
-   // Update the state transition matrix F according to the new elapsed time
-   ekf_.F_ = MatrixXd(4, 4);
-   ekf_.F_ << 1, 0, dt, 0,
-              0, 1, 0,  dt,
-              0, 0, 1,  0,
-              0, 0, 0,  1;
+  // Update the state transition matrix F according to the new elapsed time
+  ekf_.F_ = MatrixXd(4, 4);
+  ekf_.F_ << 1, 0, dt, 0,
+             0, 1, 0,  dt,
+             0, 0, 1,  0,
+             0, 0, 0,  1;
 
   // Update the process noise covariance matrix
   float noise_ax = 9;
