@@ -37,6 +37,9 @@ FusionEKF::FusionEKF() {
    * TODO: Set the process and measurement noises
    */
 
+   // measurement matrix - laser
+   H_laser_ << 1, 0, 0, 0,
+               0, 1, 0, 0;
 
 }
 
@@ -62,7 +65,7 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
     ekf_.x_ << 1, 1, 1, 1;
 
     if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
-      // TODO: Convert radar from polar to cartesian coordinates 
+      // TODO: Convert radar from polar to cartesian coordinates
       //         and initialize state.
 
     }
