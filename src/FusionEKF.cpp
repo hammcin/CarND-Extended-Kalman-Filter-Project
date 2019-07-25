@@ -2,12 +2,15 @@
 #include <iostream>
 #include "Eigen/Dense"
 #include "tools.h"
+#include <cmath>
 
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
 using std::cout;
 using std::endl;
 using std::vector;
+using std::sin;
+using std::cos;
 
 /**
  * Constructor.
@@ -68,13 +71,41 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
       // TODO: Convert radar from polar to cartesian coordinates
       //         and initialize state.
 
+      // Convert radar from polar to cartesian coordinates
+      float ro = measurement_pack.raw_measurements_[0];
+      float theta = measurement_pack.raw_measurements_[1];
+      float px = ro*cos(theta);
+      float py = ro*sin(theta);
+
+      // initialize state.
+      ekf_.x_ << px,
+                 py,
+                 0,
+                 0;
+
     }
     else if (measurement_pack.sensor_type_ == MeasurementPackage::LASER) {
       // TODO: Initialize state.
 
+      // Initialize state.
+      float px = measurement_pack.raw_measurements_[0];
+      float py = measurement_pack.raw_measurements_[1];
+      ekf_.x_ << px,
+                 py,
+                 0,
+                 0;
+
     }
 
+    // state covariance matrix P
+    ekf_.P_ = MatrixXd(4, 4);
+    ekf_.P_ << 1, 0, 0, 0,
+               0, 1, 0, 0,
+               0, 0, 1000, 0,
+               0, 0, 0, 1000;
+
     // done initializing, no need to predict or update
+    previous_timestamp_ = measurement_pack.timestamp_;
     is_initialized_ = true;
     return;
   }
