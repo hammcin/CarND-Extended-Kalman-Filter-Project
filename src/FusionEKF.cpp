@@ -163,6 +163,10 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
     // compute the Jacobian matrix
     Hj_ = tools.CalculateJacobian(ekf_.x_);
 
+    // Radar updates
+    ekf_.Init(ekf_.x_, ekf_.P_, ekf_.F_, Hj_, R_radar_, ekf_.Q_);
+    ekf_.UpdateEKF(measurement_pack.raw_measurements_);
+
   } else {
     // TODO: Laser updates
 
