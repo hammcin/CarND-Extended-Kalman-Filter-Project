@@ -160,6 +160,9 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
   if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
     // TODO: Radar updates
 
+    // compute the Jacobian matrix
+    Hj_ = tools.CalculateJacobian(ekf_.x_);
+
   } else {
     // TODO: Laser updates
 
