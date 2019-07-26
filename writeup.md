@@ -16,7 +16,7 @@ Here's a [link to my video result](./ekf_video.mp4).
 
 #### 2. Your Kalman Filter algorithm handles the first measurements appropriately.
 
-
+My Kalman Filter processes the first measurement observed in FusionEKF.cpp, FusionEKF::ProcessMeasurement, lines 58-111.  The first measurement is used to initialize the state vector for a given radar measurement (FusionEKF.cpp, FusionEKF::ProcessMeasurement, lines 70-86) and for a given laser measurement (FusionEKF.cpp, FusionEKF::ProcessMeasurement, lines 87-98).  The state covariance matrix is also initialized at this time (FusionEKF.cpp, FusionEKF::ProcessMeasurement, lines 100-105).  Radar measurements must be converted from polar to cartesian coordinates before they are used to initialize the state vector (FusionEKF.cpp, FusionEKF::ProcessMeasurement, lines 77-78).
 
 #### 3. Your Kalman Filter algorithm first predicts then updates.
 
