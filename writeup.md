@@ -6,7 +6,9 @@ In this project you will utilize a kalman filter to estimate the state of a movi
 
 #### 1. px, py, vx, vy output coordinates must have an RMSE <= [.11, .11, 0.52, 0.52] when using the file: "obj_pose-laser-radar-synthetic-input.txt" which is the same data file the simulator uses for Dataset 1.
 
+The accuracy of the Kalman Filter predictions is assessed using mean squared error as a metric (tools.cpp, Tools::CalculateRMSE, lines 17-61).  The Kalman Filter predictions are compared to the ground truth position and velocity of the moving object of interest to calculate the mean squared error.
 
+Here's a [link to my video result](./ekf_video.mp4).
 
 ### Follows the Correct Algorithm
 
