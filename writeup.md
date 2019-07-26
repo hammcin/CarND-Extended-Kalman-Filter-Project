@@ -20,7 +20,9 @@ My Kalman Filter processes the first measurement observed in FusionEKF.cpp, Fusi
 
 #### 3. Your Kalman Filter algorithm first predicts then updates.
 
+After initializing the state and covariance matrices with the first measurement, my Kalman Filter then predicts the state and covariance matrices from their previous values on subsequent iterations (FusionEKF.cpp, FusionEKF::ProcessMeasurement, lines 113-148).  Prediction is then followed by a measurement update step (FusionEKF.cpp, FusionEKF::ProcessMeasurement, lines 150-177).
 
+To perform the prediction step, it is necessary to update the state transition and process noise covariance matrices according to the time elapsed between each iteration (FusionEKF.cpp, FusionEKF::ProcessMeasurement, lines 126-146).  The updated state transition and process noise covariance matrices can then be used to predict the new state and covariance matrices (kalman_filter.cpp, KalmanFilter::Predict, line 29-40).
 
 #### 4. Your Kalman Filter can handle radar and lidar measurements.
 
