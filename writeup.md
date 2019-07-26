@@ -26,7 +26,7 @@ To perform the prediction step, it is necessary to update the state transition a
 
 #### 4. Your Kalman Filter can handle radar and lidar measurements.
 
-
+The measurement update step must be handled differently for radar (kalman_filter.cpp, KalmanFilter::Update, lines 42-63) and laser measurements (kalman_filter.cpp, KalmanFilter::UpdateEKF, lines 65-116).  Because the measurement function for radar measurements is nonlinear, it is necessary to linearize the radar measurement function by calculating its Jacobian matrix (tools.cpp, Tools::CalculateJacobian, lines 63-106).  A potential problem with calculating the Jacobian matrix is division by zero.  This situation is handled by dividing by a small number (0.001) instead (tools.cpp, Tools::CalculateJacobian, lines 77-84).  This situation also arises when converting from cartesian to polar coordinates, as is necessary when performing the radar measurement update (kalman_filter.cpp, KalmanFilter::UpdateEKF, lines 76-89).  Additionally, it is necessary to normalize the polar coordinate phi in the state vector for the radar measurement update to have a value less than or equal to pi and greater than or equal to -pi (kalman_filter.cpp, KalmanFilter::UpdateEKF, lines 91-100).
 
 ### Code Efficiency
 
